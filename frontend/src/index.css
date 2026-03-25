@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  background: #0a0d14;
+  color: #c9d1d9;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Ant Design token overrides ── */
+.ant-layout {
+  background: #0a0d14 !important;
+}
+
+.ant-layout-header {
+  padding: 0 20px !important;
+  height: 48px !important;
+  line-height: 48px !important;
+  background: #0f1420 !important;
+  border-bottom: 1px solid #1e2738 !important;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.ant-table-wrapper .ant-table {
+  background: #0f1420 !important;
+  font-size: 12px !important;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background: #111827 !important;
+  color: #6b7a99 !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid #1e2738 !important;
+  padding: 8px 12px !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr > td {
+  border-bottom: 1px solid #1a2030 !important;
+  padding: 8px 12px !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr:hover > td {
+  background: #161e2e !important;
+}
+
+.ant-table-wrapper .ant-table-tbody > tr.ant-table-row-selected > td {
+  background: #161e2e !important;
+}
+
+.ant-modal-content {
+  background: #0f1420 !important;
+  border: 1px solid #1e2738 !important;
+  border-radius: 10px !important;
+}
+
+.ant-modal-header {
+  background: #0f1420 !important;
+  border-bottom: 1px solid #1e2738 !important;
+  padding: 14px 20px 10px !important;
+}
+
+.ant-modal-title {
+  color: #e2e8f0 !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+}
+
+.ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+.ant-tabs-tab {
+  font-size: 12px !important;
+  padding: 8px 14px !important;
+}
+
+.ant-card {
+  border-radius: 8px !important;
+  border: 1px solid #1e2738 !important;
+}
+
+.ant-statistic-title {
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+}
+
+.ant-statistic-content-value {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+/* Chart containers */
+.chart-container {
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0d1220;
+}
+
+/* Score dots */
+.score-dots {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.score-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #1e2738;
+}
+
+.score-dot.buy  { background: #22c55e; }
+.score-dot.sell { background: #ef4444; }
+
+/* Indicator dots in table */
+.ind-mini {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  font-size: 9px;
+  font-weight: 700;
+}
+.ind-mini.pos { background: rgba(34,197,94,0.15); color: #22c55e; }
+.ind-mini.neg { background: rgba(239,68,68,0.15);  color: #ef4444; }
+.ind-mini.neu { background: rgba(100,116,139,0.1); color: #6b7a99; }
+
+/* Live pulse badge */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  animation: pulse 2s ease-in-out infinite;
+  margin-right: 6px;
+}
+
+/* Stat card hover */
+.stat-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.2s;
+}
+
+/* Row cursor */
+.ant-table-tbody > tr {
+  cursor: pointer;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #1e2738; border-radius: 3px; }
