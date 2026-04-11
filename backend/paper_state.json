@@ -1,0 +1,126 @@
+{
+  "balance": 993.3309721366932,
+  "positions": [
+    {
+      "symbol": "DEVA.IS",
+      "name": "DEVA",
+      "side": "AL",
+      "entry_price": 59.4,
+      "qty": 319,
+      "cost": 18967.55,
+      "time": "16:53:26",
+      "score": 4
+    },
+    {
+      "symbol": "IZENR.IS",
+      "name": "IZENR",
+      "side": "AL",
+      "entry_price": 9.47,
+      "qty": 2173,
+      "cost": 20598.89,
+      "time": "16:53:26",
+      "score": 3
+    },
+    {
+      "symbol": "ASELS.IS",
+      "name": "ASELS",
+      "side": "AL",
+      "entry_price": 320.25,
+      "qty": 68,
+      "cost": 21798.78,
+      "time": "16:57:26",
+      "score": 4
+    },
+    {
+      "symbol": "KCAER.IS",
+      "name": "KCAER",
+      "side": "AL",
+      "entry_price": 10.99,
+      "qty": 1749,
+      "cost": 19240.73,
+      "time": "17:43:10",
+      "score": 3
+    },
+    {
+      "symbol": "KORDS.IS",
+      "name": "KORDS",
+      "side": "AL",
+      "entry_price": 56.15,
+      "qty": 339,
+      "cost": 19053.88,
+      "time": "17:50:15",
+      "score": 5
+    }
+  ],
+  "history": [
+    {
+      "symbol": "SMRTG.IS",
+      "name": "SMRTG",
+      "side": "AL",
+      "entry_price": 6.38,
+      "exit_price": 6.46,
+      "qty": 3384,
+      "pnl": 227.27,
+      "pnl_pct": 1.25,
+      "reason": "AL-KAÇ (YETERLİ KÂR)",
+      "entry_time": "16:53:26",
+      "exit_time": "16:57:22"
+    },
+    {
+      "symbol": "BRYAT.IS",
+      "name": "BRYAT",
+      "side": "AL",
+      "entry_price": 2076.0,
+      "exit_price": 2085.0,
+      "qty": 9,
+      "pnl": 43.56,
+      "pnl_pct": 0.43,
+      "reason": "MOMENTUM BİTTİ (AL-KAÇ)",
+      "entry_time": "16:53:26",
+      "exit_time": "17:08:14"
+    },
+    {
+      "symbol": "SASA.IS",
+      "name": "SASA",
+      "side": "AL",
+      "entry_price": 2.32,
+      "exit_price": 2.34,
+      "qty": 8151,
+      "pnl": 125.04,
+      "pnl_pct": 0.86,
+      "reason": "AL-KAÇ (YETERLİ KÂR)",
+      "entry_time": "17:08:19",
+      "exit_time": "17:19:08"
+    },
+    {
+      "symbol": "CVKMD.IS",
+      "name": "CVKMD",
+      "side": "AL",
+      "entry_price": 31.2,
+      "exit_price": 31.6,
+      "qty": 609,
+      "pnl": 205.36,
+      "pnl_pct": 1.28,
+      "reason": "AL-KAÇ (YETERLİ KÂR)",
+      "entry_time": "17:19:23",
+      "exit_time": "17:43:05"
+    },
+    {
+      "symbol": "GUBRF.IS",
+      "name": "GUBRF",
+      "side": "AL",
+      "entry_price": 474.5,
+      "exit_price": 476.75,
+      "qty": 40,
+      "pnl": 51.95,
+      "pnl_pct": 0.47,
+      "reason": "MOMENTUM BİTTİ (AL-KAÇ)",
+      "entry_time": "16:53:26",
+      "exit_time": "17:50:10"
+    }
+  ],
+  "total_pnl": 653.1662821366845,
+  "win_count": 5,
+  "loss_count": 0,
+  "tick_count": 84
+}

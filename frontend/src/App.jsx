@@ -5,6 +5,9 @@ import StatsBar from './components/StatsBar'
 import SignalsTable from './components/SignalsTable'
 import StockModal from './components/StockModal'
 import LiveFeed from './components/LiveFeed'
+import NewsPanel from './components/NewsPanel'
+import InstitutionalFlow from './components/InstitutionalFlow'
+import PaperTrader from './components/PaperTrader'
 
 const { Header, Content } = Layout
 const { Text } = Typography
@@ -59,11 +62,13 @@ export default function App() {
   return (
     <Layout style={{ minHeight: '100vh', background: '#0a0d14' }}>
       <Header style={{
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        display: 'flex', alignItems: 'center',
         background: '#0f1420', borderBottom: '1px solid #1e2738',
         height: 48, padding: '0 20px', position: 'sticky', top: 0, zIndex: 100,
+        gap: 0,
       }}>
-        <Space size={10} align="center">
+        {/* Left: Logo */}
+        <Space size={10} align="center" style={{ flexShrink: 0 }}>
           <RiseOutlined style={{ color: '#3b82f6', fontSize: 16 }} />
           <Text style={{ color: '#e2e8f0', fontWeight: 700, fontSize: 14, letterSpacing: '0.01em' }}>
             BIST <span style={{ color: '#3b82f6' }}>Trade Bot</span>
@@ -77,7 +82,12 @@ export default function App() {
             <span className="live-dot" />CANLI
           </span>
         </Space>
-        <Space size={12}>
+
+        {/* Center: Institutional ticker — takes all remaining space */}
+        <InstitutionalFlow />
+
+        {/* Right: time + refresh */}
+        <Space size={12} style={{ flexShrink: 0 }}>
           {lastUpdate && (
             <Text style={{ color: '#4a5568', fontSize: 11 }}>
               {lastUpdate.toLocaleTimeString('tr-TR')}
@@ -119,6 +129,12 @@ export default function App() {
         data={modalData}
         onClose={() => { setModalOpen(false); setModalData(null) }}
       />
+
+      {/* Fixed bottom-right news panel */}
+      <NewsPanel />
+
+      {/* Fixed bottom-left paper trading bot */}
+      <PaperTrader />
     </Layout>
   )
 }

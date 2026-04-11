@@ -118,18 +118,27 @@ def generate_signal(df: pd.DataFrame) -> dict:
 
     score = rsi_s + bb_s + macd_s + sw_s + ema_s + srsi_s + vol_s + vwap_s  # -8…+8
 
-    # Skor → sinyal etiketi (8 indikatörle ölçeklendirildi)
-    if score >= 5:   signal = SIGNAL_STRONG_BUY
-    elif score >= 3: signal = SIGNAL_BUY
-    elif score <= -5: signal = SIGNAL_STRONG_SELL
-    elif score <= -3: signal = SIGNAL_SELL
+    # Skor → sinyal etiketi (hassas mod — daha fazla AL/SAT üretir)
+    if score >= 4:   signal = SIGNAL_STRONG_BUY
+    elif score >= 2: signal = SIGNAL_BUY
+    elif score <= -4: signal = SIGNAL_STRONG_SELL
+    elif score <= -2: signal = SIGNAL_SELL
     else:             signal = SIGNAL_HOLD
 
     latest = df_ind.iloc[-1]
     price  = round(float(latest["Close"]), 2)
 
-    first_close = float(df_ind["Close"].iloc[0])
-    change_pct  = round(((price - first_close) / first_close) * 100, 2) if first_close != 0 else 0.0
+    # Günlük değişim için bir önceki günün kapanışını bul
+    current_date = df_ind.index[-1].date()
+    prev_days = df_ind[df_ind.index.date < current_date]
+    if not prev_days.empty:
+        prev_close = float(prev_days["Close"].iloc[-1])
+    else:
+        # Önceki gün yoksa, bugünün ilk açılış fiyatını kullan
+        today_data = df_ind[df_ind.index.date == current_date]
+        prev_close = float(today_data["Open"].iloc[0]) if not today_data.empty else float(df_ind["Close"].iloc[0])
+
+    change_pct  = round(((price - prev_close) / prev_close) * 100, 2) if prev_close != 0 else 0.0
 
     rsi_val      = round(float(latest["rsi"]),       2) if not pd.isna(latest["rsi"])      else None
     macd_val     = round(float(latest["macd_hist"]), 4) if not pd.isna(latest["macd_hist"]) else None

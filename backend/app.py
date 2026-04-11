@@ -1,17 +1,32 @@
 import sys
 import os
+import time
 sys.path.insert(0, os.path.dirname(__file__))
 
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request
 from flask_cors import CORS
 
 from bist100_list import BIST100_SYMBOLS, get_symbol_name
 from data_fetcher import fetch_stock_data, fetch_multiple
 from signal_engine import generate_signal, generate_all_signals
 from indicators import calculate_all
+from news_fetcher import fetch_news
+from sentiment import analyze
+from institutional_fetcher import fetch_institutional
+from paper_trader import trader as paper_trader
 
 import pandas as pd
 from typing import Any
+
+# ─── Haber cache ─────────────────────────────────────────────────────
+_news_cache: list[dict] = []
+_news_cache_ts: float = 0.0
+NEWS_CACHE_TTL = 300   # 5 dakika
+
+# ─── Kurumsal akış cache ────────────────────────────────────────────
+_inst_cache: list[dict] = []
+_inst_cache_ts: float = 0.0
+INST_CACHE_TTL = 600   # 10 dakika
 
 app = Flask(__name__, static_folder="../frontend/dist", static_url_path="")
 CORS(app)
@@ -111,12 +126,77 @@ def api_stats():
 
 
 # ────────────────────────────────────────────
+# API: Piyasa Haberleri
+# ────────────────────────────────────────────
+@app.route("/api/news")
+def api_news():
+    global _news_cache, _news_cache_ts
+
+    if time.time() - _news_cache_ts < NEWS_CACHE_TTL and _news_cache:
+        return jsonify({"status": "ok", "count": len(_news_cache), "items": _news_cache})
+
+    raw = fetch_news(max_items=20)
+    enriched = []
+    for item in raw:
+        sent = analyze(item["title"], item.get("summary", ""))
+        enriched.append({
+            **item,
+            "sentiment":    sent["sentiment"],
+            "score":        sent["score"],
+            "action":       sent["action"],
+            "action_color": sent["action_color"],
+            "impact_desc":  sent["impact_desc"],
+        })
+
+    _news_cache    = enriched
+    _news_cache_ts = time.time()
+    return jsonify({"status": "ok", "count": len(enriched), "items": enriched})
+
+
+
+# ────────────────────────────────────────────
+# API: Kurumsal Yatırımcı Alım/Satım Akışı
+# ────────────────────────────────────────────
+@app.route("/api/institutional")
+def api_institutional():
+    global _inst_cache, _inst_cache_ts
+
+    if time.time() - _inst_cache_ts < INST_CACHE_TTL and _inst_cache:
+        return jsonify({"status": "ok", "count": len(_inst_cache), "items": _inst_cache})
+
+    items = fetch_institutional(max_items=15)
+    _inst_cache    = items
+    _inst_cache_ts = time.time()
+    return jsonify({"status": "ok", "count": len(items), "items": items})
+
+
+# ────────────────────────────────────────────
 # API: Hisse listesi
 # ────────────────────────────────────────────
 @app.route("/api/bist100")
 def api_bist100():
     symbols = [{"symbol": s, "name": get_symbol_name(s)} for s in BIST100_SYMBOLS]
     return jsonify({"status": "ok", "symbols": symbols})
+
+
+# ────────────────────────────────────────────
+# API: Paper Trading (Hayali Bakiye)
+# ────────────────────────────────────────────
+@app.route("/api/paper/status")
+def api_paper_status():
+    return jsonify({"status": "ok", **paper_trader.status()})
+
+
+@app.route("/api/paper/tick", methods=["POST"])
+def api_paper_tick():
+    result = paper_trader.tick()
+    return jsonify({"status": "ok", **result})
+
+
+@app.route("/api/paper/reset", methods=["POST"])
+def api_paper_reset():
+    paper_trader.reset()
+    return jsonify({"status": "ok", "message": "Paper trader sıfırlandı", **paper_trader.status()})
 
 
 if __name__ == "__main__":

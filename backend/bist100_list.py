@@ -20,6 +20,10 @@ BIST100_SYMBOLS = [
     "YEOTK.IS", "YKBNK.IS", "ZRGYO.IS", "PRKME.IS", "AGHOL.IS",
     "AGESA.IS", "AKMGY.IS", "AKGRT.IS", "BASGZ.IS", "CANTE.IS",
     "BFREN.IS", "DEVA.IS", "FENER.IS", "GLCVY.IS", "HEKTS.IS",
+    # AL-KAÇ / Yüksek Volatilite (Teknoloji & Yeni Halka Arzlar)
+    "MIATK.IS", "ASTOR.IS", "TABGD.IS", "FORTE.IS", "CVKMD.IS",
+    "REEDR.IS", "MEKAG.IS", "IZENR.IS", "KALES.IS", "TATEN.IS",
+    "BYDNR.IS", "BINHO.IS", "OBAKM.IS", "ALVES.IS", "CATES.IS",
 ]
 
 def get_symbol_name(symbol: str) -> str:

@@ -7,13 +7,13 @@ import time
 # Önbellek: {symbol: (timestamp, dataframe)}
 _cache = {}
 _cache_lock = threading.Lock()
-CACHE_TTL_SECONDS = 60 * 5  # 5 dakika
+CACHE_TTL_SECONDS = 60 * 1  # 5m mumlar için 1 dakika TTL hızı artırır
 
 
-def fetch_stock_data(symbol: str, period: str = "5d", interval: str = "15m") -> pd.DataFrame | None:
+def fetch_stock_data(symbol: str, period: str = "5d", interval: str = "5m") -> pd.DataFrame | None:
     """
-    Yahoo Finance'den 15 dakikalık mum verisi çeker.
-    Sonuçları önbellekte tutar (5 dakika TTL).
+    Yahoo Finance'den 5 dakikalık hızlı mum verisi çeker (Scalping/Al-kaç için).
+    Sonuçları önbellekte tutar (1 dakika TTL).
     """
     now = time.time()
     with _cache_lock:
